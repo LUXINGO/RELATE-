@@ -1,0 +1,14 @@
+<h2>Payment Successful 🎉</h2>
+<p>Click below to complete verification</p>
+
+<button onclick="goWhatsApp()">Verify on WhatsApp</button>
+
+<script>
+function goWhatsApp() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const plan = urlParams.get("plan") || "Basic";
+
+  window.location.href =
+    `https://wa.me/2348038684515?text=Hello%20I%20have%20paid%20for%20${plan}%20plan%20on%20RELATE.%20Please%20verify%20me`;
+}
+</script>
