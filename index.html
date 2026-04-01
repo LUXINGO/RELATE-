@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <style>
+        /* All original CSS remains exactly the same */
         * {
             margin: 0;
             padding: 0;
@@ -240,6 +241,221 @@
             cursor: pointer;
             text-transform: uppercase;
             margin-left: 10px;
+        }
+
+        .user-menu {
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            z-index: 200;
+            min-width: 150px;
+            border: 1px solid var(--border);
+            display: none;
+        }
+
+        .user-menu-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--dark);
+        }
+
+        .user-menu-item:hover {
+            background: var(--light);
+        }
+
+        /* Plan Selection Portal - NEW */
+        .plan-portal {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .plan-portal h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .plan-portal > p {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .plan-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--dark);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .plan-card.popular {
+            border-color: var(--success);
+            position: relative;
+        }
+
+        .plan-card.popular::before {
+            content: '🔥 POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .plan-price {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .plan-features li {
+            padding: 5px 0;
+            color: var(--gray);
+        }
+
+        .plan-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        /* Comments Section - NEW */
+        .comments-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .comment-item {
+            background: var(--light);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .comment-text {
+            margin-bottom: 8px;
+            word-break: break-word;
+        }
+
+        .comment-actions {
+            display: flex;
+            gap: 15px;
+            font-size: 0.8rem;
+        }
+
+        .comment-like-btn, .comment-dislike-btn {
+            cursor: pointer;
+            padding: 2px 8px;
+            border-radius: 15px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .comment-like-btn.liked { background: var(--success); color: white; }
+        .comment-dislike-btn.disliked { background: var(--danger); color: white; }
+
+        .add-comment {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .add-comment input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+        }
+
+        .add-comment button {
+            padding: 8px 15px;
+            background: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .view-all-comments {
+            text-align: center;
+            padding: 8px;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .view-all-comments:hover {
+            color: var(--dark);
+            text-decoration: underline;
+        }
+
+        /* Like Button - NEW */
+        .btn-like {
+            background: var(--warning);
+            color: var(--dark);
+        }
+
+        .btn-like:hover {
+            background: #ffaa00;
+        }
+
+        .btn-like.liked {
+            background: var(--danger);
+            color: white;
         }
 
         /* Search Bar */
@@ -663,81 +879,6 @@
             color: var(--dark);
         }
 
-        /* Followers/Following Lists */
-        .follow-list {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid var(--border);
-        }
-
-        .follow-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .follow-header h3 {
-            color: var(--dark);
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            color: var(--gray);
-        }
-
-        .follow-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 10px;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .follow-item:hover {
-            background: var(--light);
-        }
-
-        .follow-item:last-child {
-            border-bottom: none;
-        }
-
-        .follow-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--dark);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .follow-info {
-            flex: 1;
-        }
-
-        .follow-name {
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .follow-username {
-            font-size: 0.8rem;
-            color: var(--gray);
-        }
-
         /* Filters */
         .filters-section {
             background: var(--white);
@@ -1112,38 +1253,111 @@
             color: var(--dark);
         }
 
+        /* Review Card */
+        .review-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .review-stars {
+            color: var(--warning);
+        }
+
+        .review-date {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 10px;
+        }
+
+        /* Follow Lists */
+        .follow-list {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .follow-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .follow-item:hover {
+            background: var(--light);
+        }
+
+        .follow-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--dark);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .follow-info {
+            flex: 1;
+        }
+
+        .follow-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .follow-username {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Profile Header */
+        .profile-header h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .reviews-section h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
         /* Animations */
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         @keyframes fadeIn {
@@ -1152,14 +1366,8 @@
         }
 
         @keyframes scaleIn {
-            from {
-                transform: scale(0.9);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         @keyframes spin {
@@ -1168,59 +1376,24 @@
         }
 
         @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
-            }
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .user-stats {
-                gap: 20px;
-            }
-            
-            .business-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .navbar {
-                padding: 10px;
-            }
-            
-            .nav-brand {
-                font-size: 1.2rem;
-            }
-            
-            .nav-btn {
-                padding: 6px 12px;
-                font-size: 0.9rem;
-            }
-            
-            .user-actions {
-                flex-direction: column;
-            }
-            
-            .user-actions button {
-                width: 100%;
-            }
-            
-            .admin-tabs {
-                flex-wrap: nowrap;
-            }
-
-            .search-container {
-                flex-direction: column;
-            }
-
-            .search-btn {
-                width: 100%;
-            }
+            .user-stats { gap: 20px; }
+            .business-grid { grid-template-columns: 1fr; }
+            .navbar { padding: 10px; }
+            .nav-brand { font-size: 1.2rem; }
+            .nav-btn { padding: 6px 12px; font-size: 0.9rem; }
+            .user-actions { flex-direction: column; }
+            .user-actions button { width: 100%; }
+            .admin-tabs { flex-wrap: nowrap; }
+            .search-container { flex-direction: column; }
+            .search-btn { width: 100%; }
+            .plans-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -1305,7 +1478,6 @@
 
     <!-- Main App Container -->
     <div id="appContainer" class="app-container">
-        <!-- Navbar -->
         <nav class="navbar">
             <div class="nav-brand" onclick="showHome()">RELATE</div>
             <div class="nav-buttons">
@@ -1315,19 +1487,60 @@
             </div>
         </nav>
 
-        <!-- User Menu Dropdown -->
-        <div id="userMenu" class="user-menu" style="display: none;">
+        <div id="userMenu" class="user-menu">
             <div class="user-menu-item" onclick="showUserPage()">My Profile</div>
             <div class="user-menu-item" onclick="logout()">Logout</div>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content" id="mainContent">
-            <!-- Dynamic content will be loaded here -->
+        <div class="main-content" id="mainContent"></div>
+    </div>
+
+    <!-- Plan Selection Modal - NEW -->
+    <div class="modal" id="planSelectionModal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h2>Choose Your Business Plan</h2>
+                <span class="modal-close" onclick="closeModal('planSelectionModal')">&times;</span>
+            </div>
+            <div class="plan-portal">
+                <p>Select the plan that best fits your business needs</p>
+                <div class="plans-grid">
+                    <div class="plan-card" onclick="payBasic()">
+                        <div class="plan-name">Basic</div>
+                        <div class="plan-price">$1<span>/month</span></div>
+                        <ul class="plan-features">
+                            <li>✓ Limited leads</li>
+                            <li>✓ Basic visibility</li>
+                            <li>✓ Standard support</li>
+                        </ul>
+                        <button class="plan-btn">Select Basic</button>
+                    </div>
+                    <div class="plan-card popular" onclick="payElite()">
+                        <div class="plan-name">Elite</div>
+                        <div class="plan-price">$5<span>/month</span></div>
+                        <ul class="plan-features">
+                            <li>✓ 50% more visibility</li>
+                            <li>✓ Priority listing</li>
+                            <li>✓ Priority support</li>
+                        </ul>
+                        <button class="plan-btn">Select Elite</button>
+                    </div>
+                    <div class="plan-card" onclick="payPro()">
+                        <div class="plan-name">Pro</div>
+                        <div class="plan-price">$10<span>/month</span></div>
+                        <ul class="plan-features">
+                            <li>✓ 100% maximum visibility</li>
+                            <li>✓ Top of search results</li>
+                            <li>✓ 24/7 VIP support</li>
+                        </ul>
+                        <button class="plan-btn">Select Pro</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Business Application Modal -->
+    <!-- Business Application Modal - UPDATED -->
     <div class="modal" id="businessModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1393,7 +1606,30 @@
                     <option value="Pro">Pro ($10/month) - 100% visibility</option>
                 </select>
             </div>
-            <button class="btn" onclick="submitBusinessApplication()">Apply via WhatsApp</button>
+            <div class="form-group">
+                <label>Business Phone</label>
+                <input type="tel" id="businessPhone" placeholder="Business contact number">
+            </div>
+            <div class="form-group">
+                <label>Business Address</label>
+                <input type="text" id="businessAddress" placeholder="Business address">
+            </div>
+            <button class="btn" onclick="submitBusinessApplication()">Continue to Payment</button>
+        </div>
+    </div>
+
+    <!-- Comments Modal - NEW -->
+    <div class="modal" id="commentsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Comments & Reviews</h2>
+                <span class="modal-close" onclick="closeModal('commentsModal')">&times;</span>
+            </div>
+            <div id="commentsModalList" class="comments-modal-list" style="max-height: 400px; overflow-y: auto;"></div>
+            <div class="add-comment">
+                <input type="text" id="newCommentText" placeholder="Write a comment...">
+                <button onclick="submitNewComment()">Post</button>
+            </div>
         </div>
     </div>
 
@@ -1424,427 +1660,119 @@
         </div>
     </div>
 
-    <!-- Admin Add Business Modal -->
+    <!-- Admin Modals -->
     <div class="modal" id="adminAddBusinessModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Add New Business</h2>
                 <span class="modal-close" onclick="closeModal('adminAddBusinessModal')">&times;</span>
             </div>
-            <div class="form-group">
-                <label>Business Name</label>
-                <input type="text" id="adminBusinessName" placeholder="Enter business name">
-            </div>
-            <div class="form-group">
-                <label>Owner</label>
-                <select id="adminBusinessOwner">
-                    <option value="">Select Owner</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Service Category</label>
-                <select id="adminBusinessCategory">
-                    <option value="Barber">Barber</option>
-                    <option value="Plumber">Plumber</option>
-                    <option value="Electrician">Electrician</option>
-                    <option value="Cleaner">Cleaner</option>
-                    <option value="Mechanic">Mechanic</option>
-                    <option value="Catering">Catering</option>
-                    <option value="Photography">Photography</option>
-                    <option value="Tutoring">Tutoring</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Legal">Legal</option>
-                    <option value="Real Estate">Real Estate</option>
-                    <option value="Beauty & Spa">Beauty & Spa</option>
-                    <option value="Tiler">Tiler</option>
-                    <option value="Carpenter">Carpenter</option>
-                    <option value="Solar Installer">Solar Installer</option>
-                    <option value="Graphic Designer">Graphic Designer</option>
-                    <option value="Videographer">Videographer</option>
-                    <option value="Interior Decorator">Interior Decorator</option>
-                    <option value="Hairstylist">Hairstylist</option>
-                    <option value="Makeup Artist">Makeup Artist</option>
-                    <option value="Nail Technician">Nail Technician</option>
-                    <option value="Fashion Designer">Fashion Designer</option>
-                    <option value="Phone Repair">Phone Repair</option>
-                    <option value="Laptop Repair">Laptop Repair</option>
-                    <option value="Car Wash">Car Wash</option>
-                    <option value="Painter">Painter</option>
-                    <option value="Welder">Welder</option>
-                    <option value="Delivery Service">Delivery Service</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Gender</label>
-                <select id="adminBusinessGender">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                    <option value="Any">Any</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Description</label>
-                <textarea id="adminBusinessDescription" rows="3" placeholder="Describe the business..."></textarea>
-            </div>
-            <div class="form-group">
-                <label>Country</label>
-                <select id="adminBusinessCountry" onchange="updateAdminBusinessStates()">
-                    <option value="">Select Country</option>
-                    <option value="Nigeria">Nigeria</option>
-                    <option value="USA">United States</option>
-                    <option value="UK">United Kingdom</option>
-                    <option value="Kenya">Kenya</option>
-                    <option value="South Africa">South Africa</option>
-                    <option value="Ghana">Ghana</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>State</label>
-                <select id="adminBusinessState">
-                    <option value="">Select State</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>City/Address</label>
-                <input type="text" id="adminBusinessAddress" placeholder="Enter city/address">
-            </div>
-            <div class="form-group">
-                <label>Phone</label>
-                <input type="tel" id="adminBusinessPhone" placeholder="Enter phone number">
-            </div>
-            <div class="form-group">
-                <label>Initial Rating (1-5)</label>
-                <input type="number" id="adminBusinessRating" min="1" max="5" step="0.1" value="1.5">
-            </div>
-            <div class="form-group">
-                <label>Plan</label>
-                <select id="adminBusinessPlan">
-                    <option value="Basic">Basic</option>
-                    <option value="Elite">Elite</option>
-                    <option value="Pro">Pro</option>
-                </select>
-            </div>
-            <button class="btn" onclick="adminAddBusiness()">Add Business & Publish</button>
+            <div class="form-group"><label>Business Name</label><input type="text" id="adminBusinessName"></div>
+            <div class="form-group"><label>Owner</label><select id="adminBusinessOwner"><option value="">Select Owner</option></select></div>
+            <div class="form-group"><label>Category</label><select id="adminBusinessCategory"></select></div>
+            <div class="form-group"><label>Gender</label><select id="adminBusinessGender"><option>Male</option><option>Female</option><option>Other</option><option>Any</option></select></div>
+            <div class="form-group"><label>Description</label><textarea id="adminBusinessDescription" rows="3"></textarea></div>
+            <div class="form-group"><label>Country</label><select id="adminBusinessCountry" onchange="updateAdminBusinessStates()"><option value="">Select Country</option><option value="Nigeria">Nigeria</option><option value="USA">USA</option><option value="UK">UK</option></select></div>
+            <div class="form-group"><label>State</label><select id="adminBusinessState"></select></div>
+            <div class="form-group"><label>Address</label><input type="text" id="adminBusinessAddress"></div>
+            <div class="form-group"><label>Phone</label><input type="tel" id="adminBusinessPhone"></div>
+            <div class="form-group"><label>Rating</label><input type="number" id="adminBusinessRating" min="1" max="5" step="0.1" value="1.5"></div>
+            <div class="form-group"><label>Plan</label><select id="adminBusinessPlan"><option>Basic</option><option>Elite</option><option>Pro</option></select></div>
+            <button class="btn" onclick="adminAddBusiness()">Add Business</button>
         </div>
     </div>
 
-    <!-- Admin Set Rating Modal -->
     <div class="modal" id="adminSetRatingModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Set Business Rating</h2>
-                <span class="modal-close" onclick="closeModal('adminSetRatingModal')">&times;</span>
-            </div>
-            <div class="form-group">
-                <label>Business</label>
-                <input type="text" id="setRatingBusinessName" readonly>
-            </div>
-            <div class="form-group">
-                <label>Current Rating</label>
-                <input type="text" id="setRatingCurrent" readonly>
-            </div>
-            <div class="form-group">
-                <label>New Rating (1-5)</label>
-                <input type="number" id="setRatingNew" min="1" max="5" step="0.1">
-            </div>
+            <div class="modal-header"><h2>Set Rating</h2><span class="modal-close" onclick="closeModal('adminSetRatingModal')">&times;</span></div>
+            <div class="form-group"><label>Business</label><input type="text" id="setRatingBusinessName" readonly></div>
+            <div class="form-group"><label>Current</label><input type="text" id="setRatingCurrent" readonly></div>
+            <div class="form-group"><label>New Rating</label><input type="number" id="setRatingNew" min="1" max="5" step="0.1"></div>
             <button class="btn" onclick="setBusinessRating()">Set Rating</button>
         </div>
     </div>
 
-    <!-- Edit Business Modal -->
     <div class="modal" id="editBusinessModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Edit Business</h2>
-                <span class="modal-close" onclick="closeModal('editBusinessModal')">&times;</span>
-            </div>
-            <div class="form-group">
-                <label>Business Name</label>
-                <input type="text" id="editBusinessName">
-            </div>
-            <div class="form-group">
-                <label>Category</label>
-                <select id="editBusinessCategory">
-                    <option value="Barber">Barber</option>
-                    <option value="Plumber">Plumber</option>
-                    <option value="Electrician">Electrician</option>
-                    <option value="Cleaner">Cleaner</option>
-                    <option value="Mechanic">Mechanic</option>
-                    <option value="Catering">Catering</option>
-                    <option value="Photography">Photography</option>
-                    <option value="Tutoring">Tutoring</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Legal">Legal</option>
-                    <option value="Real Estate">Real Estate</option>
-                    <option value="Beauty & Spa">Beauty & Spa</option>
-                    <option value="Tiler">Tiler</option>
-                    <option value="Carpenter">Carpenter</option>
-                    <option value="Solar Installer">Solar Installer</option>
-                    <option value="Graphic Designer">Graphic Designer</option>
-                    <option value="Videographer">Videographer</option>
-                    <option value="Interior Decorator">Interior Decorator</option>
-                    <option value="Hairstylist">Hairstylist</option>
-                    <option value="Makeup Artist">Makeup Artist</option>
-                    <option value="Nail Technician">Nail Technician</option>
-                    <option value="Fashion Designer">Fashion Designer</option>
-                    <option value="Phone Repair">Phone Repair</option>
-                    <option value="Laptop Repair">Laptop Repair</option>
-                    <option value="Car Wash">Car Wash</option>
-                    <option value="Painter">Painter</option>
-                    <option value="Welder">Welder</option>
-                    <option value="Delivery Service">Delivery Service</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Description</label>
-                <textarea id="editBusinessDescription" rows="3"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Phone</label>
-                <input type="tel" id="editBusinessPhone">
-            </div>
-            <div class="form-group">
-                <label>Address</label>
-                <input type="text" id="editBusinessAddress">
-            </div>
-            <div class="form-group">
-                <label>City</label>
-                <input type="text" id="editBusinessCity">
-            </div>
-            <div class="form-group">
-                <label>State</label>
-                <input type="text" id="editBusinessState">
-            </div>
-            <div class="form-group">
-                <label>Country</label>
-                <input type="text" id="editBusinessCountry">
-            </div>
-            <button class="btn" onclick="saveBusinessEdit()">Save Changes</button>
+            <div class="modal-header"><h2>Edit Business</h2><span class="modal-close" onclick="closeModal('editBusinessModal')">&times;</span></div>
+            <div class="form-group"><label>Name</label><input type="text" id="editBusinessName"></div>
+            <div class="form-group"><label>Category</label><select id="editBusinessCategory"></select></div>
+            <div class="form-group"><label>Description</label><textarea id="editBusinessDescription" rows="3"></textarea></div>
+            <div class="form-group"><label>Phone</label><input type="tel" id="editBusinessPhone"></div>
+            <div class="form-group"><label>Address</label><input type="text" id="editBusinessAddress"></div>
+            <div class="form-group"><label>City</label><input type="text" id="editBusinessCity"></div>
+            <div class="form-group"><label>State</label><input type="text" id="editBusinessState"></div>
+            <div class="form-group"><label>Country</label><input type="text" id="editBusinessCountry"></div>
+            <button class="btn" onclick="saveBusinessEdit()">Save</button>
         </div>
     </div>
 
-    <!-- Review Modal -->
     <div class="modal" id="reviewModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Write a Review</h2>
-                <span class="modal-close" onclick="closeModal('reviewModal')">&times;</span>
-            </div>
-            <div class="form-group">
-                <label>Rating</label>
-                <select id="reviewStars">
-                    <option value="5">5 Stars - Excellent</option>
-                    <option value="4">4 Stars - Good</option>
-                    <option value="3">3 Stars - Average</option>
-                    <option value="2">2 Stars - Poor</option>
-                    <option value="1">1 Star - Terrible</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Comment</label>
-                <textarea id="reviewComment" rows="4" placeholder="Share your experience..."></textarea>
-            </div>
-            <button class="btn" onclick="submitReview()">Submit Review</button>
+            <div class="modal-header"><h2>Write Review</h2><span class="modal-close" onclick="closeModal('reviewModal')">&times;</span></div>
+            <div class="form-group"><label>Rating</label><select id="reviewStars"><option value="5">5 Stars</option><option value="4">4 Stars</option><option value="3">3 Stars</option><option value="2">2 Stars</option><option value="1">1 Star</option></select></div>
+            <div class="form-group"><label>Comment</label><textarea id="reviewComment" rows="4"></textarea></div>
+            <button class="btn" onclick="submitReview()">Submit</button>
         </div>
     </div>
 
-    <!-- Report Modal -->
     <div class="modal" id="reportModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Report Business</h2>
-                <span class="modal-close" onclick="closeModal('reportModal')">&times;</span>
-            </div>
-            <div class="form-group">
-                <label>Reason</label>
-                <select id="reportReason">
-                    <option value="Fake Business">Fake Business</option>
-                    <option value="Poor Service">Poor Service</option>
-                    <option value="Harassment">Harassment</option>
-                    <option value="Scam">Scam</option>
-                    <option value="Offensive Content">Offensive Content</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Details</label>
-                <textarea id="reportDetails" rows="4" placeholder="Provide details..."></textarea>
-            </div>
-            <button class="btn btn-danger" onclick="submitReport()">Submit Report</button>
+            <div class="modal-header"><h2>Report Business</h2><span class="modal-close" onclick="closeModal('reportModal')">&times;</span></div>
+            <div class="form-group"><label>Reason</label><select id="reportReason"><option>Fake Business</option><option>Poor Service</option><option>Harassment</option><option>Scam</option></select></div>
+            <div class="form-group"><label>Details</label><textarea id="reportDetails" rows="4"></textarea></div>
+            <button class="btn btn-danger" onclick="submitReport()">Submit</button>
         </div>
     </div>
 
-    <!-- Edit Profile Modal -->
     <div class="modal" id="editProfileModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Edit Profile</h2>
-                <span class="modal-close" onclick="closeModal('editProfileModal')">&times;</span>
-            </div>
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" id="editName">
-            </div>
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" id="editUsername">
-            </div>
-            <div class="form-group">
-                <label>Phone</label>
-                <input type="tel" id="editPhone">
-            </div>
-            <div class="form-group">
-                <label>Country</label>
-                <select id="editCountry" onchange="updateEditStates()">
-                    <option value="">Select Country</option>
-                    <option value="Nigeria">Nigeria</option>
-                    <option value="USA">United States</option>
-                    <option value="UK">United Kingdom</option>
-                    <option value="Kenya">Kenya</option>
-                    <option value="South Africa">South Africa</option>
-                    <option value="Ghana">Ghana</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>State</label>
-                <select id="editState">
-                    <option value="">Select State</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Address</label>
-                <input type="text" id="editAddress">
-            </div>
-            <button class="btn" onclick="updateProfile()">Update Profile</button>
+            <div class="modal-header"><h2>Edit Profile</h2><span class="modal-close" onclick="closeModal('editProfileModal')">&times;</span></div>
+            <div class="form-group"><label>Name</label><input type="text" id="editName"></div>
+            <div class="form-group"><label>Username</label><input type="text" id="editUsername"></div>
+            <div class="form-group"><label>Phone</label><input type="tel" id="editPhone"></div>
+            <div class="form-group"><label>Country</label><select id="editCountry" onchange="updateEditStates()"><option>Nigeria</option><option>USA</option><option>UK</option></select></div>
+            <div class="form-group"><label>State</label><select id="editState"></select></div>
+            <div class="form-group"><label>Address</label><input type="text" id="editAddress"></div>
+            <button class="btn" onclick="updateProfile()">Update</button>
         </div>
     </div>
 
-    <!-- Change Password Modal -->
     <div class="modal" id="changePasswordModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Change Password</h2>
-                <span class="modal-close" onclick="closeModal('changePasswordModal')">&times;</span>
-            </div>
-            <div class="form-group">
-                <label>Current Password</label>
-                <input type="password" id="currentPassword">
-            </div>
-            <div class="form-group">
-                <label>New Password</label>
-                <input type="password" id="newPassword">
-            </div>
-            <div class="form-group">
-                <label>Confirm New Password</label>
-                <input type="password" id="confirmNewPassword">
-            </div>
-            <button class="btn" onclick="changePassword()">Change Password</button>
+            <div class="modal-header"><h2>Change Password</h2><span class="modal-close" onclick="closeModal('changePasswordModal')">&times;</span></div>
+            <div class="form-group"><label>Current</label><input type="password" id="currentPassword"></div>
+            <div class="form-group"><label>New</label><input type="password" id="newPassword"></div>
+            <div class="form-group"><label>Confirm</label><input type="password" id="confirmNewPassword"></div>
+            <button class="btn" onclick="changePassword()">Change</button>
         </div>
     </div>
 
-    <!-- Followers Modal -->
     <div class="modal" id="followersModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Followers</h2>
-                <span class="modal-close" onclick="closeModal('followersModal')">&times;</span>
-            </div>
-            <div id="followersList" class="follow-list"></div>
-        </div>
+        <div class="modal-content"><div class="modal-header"><h2>Followers</h2><span class="modal-close" onclick="closeModal('followersModal')">&times;</span></div><div id="followersList"></div></div>
     </div>
 
-    <!-- Following Modal -->
     <div class="modal" id="followingModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Following</h2>
-                <span class="modal-close" onclick="closeModal('followingModal')">&times;</span>
-            </div>
-            <div id="followingList" class="follow-list"></div>
-        </div>
+        <div class="modal-content"><div class="modal-header"><h2>Following</h2><span class="modal-close" onclick="closeModal('followingModal')">&times;</span></div><div id="followingList"></div></div>
     </div>
 
-    <!-- User Profile Modal -->
     <div class="modal" id="userProfileModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>User Profile</h2>
-                <span class="modal-close" onclick="closeModal('userProfileModal')">&times;</span>
-            </div>
-            <div id="userProfileContent"></div>
-        </div>
+        <div class="modal-content"><div class="modal-header"><h2>User Profile</h2><span class="modal-close" onclick="closeModal('userProfileModal')">&times;</span></div><div id="userProfileContent"></div></div>
     </div>
 
-    <!-- Customer Service Modal -->
     <div class="modal" id="customerServiceModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Customer Service</h2>
-                <span class="modal-close" onclick="closeModal('customerServiceModal')">&times;</span>
-            </div>
+            <div class="modal-header"><h2>Customer Service</h2><span class="modal-close" onclick="closeModal('customerServiceModal')">&times;</span></div>
             <div class="customer-service">
-                <p>How can we help you today?</p>
+                <p>How can we help?</p>
                 <div class="service-options">
-                    <div class="service-card" onclick="contactSupport('email')">
-                        <i>📧</i>
-                        <h4>Email Support</h4>
-                        <p>eluxxes@gmail.com</p>
-                    </div>
-                    <div class="service-card" onclick="contactSupport('whatsapp')">
-                        <i>📱</i>
-                        <h4>WhatsApp</h4>
-                        <p>+2348038684515</p>
-                    </div>
-                    <div class="service-card" onclick="contactSupport('faq')">
-                        <i>❓</i>
-                        <h4>FAQ</h4>
-                        <p>Frequently asked questions</p>
-                    </div>
+                    <div class="service-card" onclick="contactSupport('email')"><i>📧</i><h4>Email</h4><p>eluxxes@gmail.com</p></div>
+                    <div class="service-card" onclick="contactSupport('whatsapp')"><i>📱</i><h4>WhatsApp</h4><p>+2348038684515</p></div>
+                    <div class="service-card" onclick="contactSupport('faq')"><i>❓</i><h4>FAQ</h4></div>
                 </div>
-                
                 <div class="faq-section">
-                    <h3>Frequently Asked Questions</h3>
-                    
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleFAQ(this)">
-                            <span>How do I create a business account?</span>
-                            <span class="faq-icon">➕</span>
-                        </div>
-                        <div class="faq-answer">
-                            Go to your profile page and click "Upgrade to Business". Fill in your details and submit. Admin will review within 24-48 hours.
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleFAQ(this)">
-                            <span>How does the rating system work?</span>
-                            <span class="faq-icon">➕</span>
-                        </div>
-                        <div class="faq-answer">
-                            New businesses start at 1.5⭐. Each 5-star review increases your rating. Formula: Total Stars / Total Reviews.
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleFAQ(this)">
-                            <span>What are the business plans?</span>
-                            <span class="faq-icon">➕</span>
-                        </div>
-                        <div class="faq-answer">
-                            Basic ($1/month) - Limited leads, Elite ($5/month) - 50% visibility, Pro ($10/month) - 100% visibility. Each lasts 30 days.
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleFAQ(this)">
-                            <span>How do I follow someone?</span>
-                            <span class="faq-icon">➕</span>
-                        </div>
-                        <div class="faq-answer">
-                            Click "Follow" on any business card or user profile. You can only follow each user once.
-                        </div>
-                    </div>
+                    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>How to create business?</span><span class="faq-icon">➕</span></div><div class="faq-answer">Click Upgrade to Business, select plan, pay, then complete form.</div></div>
+                    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>How does rating work?</span><span class="faq-icon">➕</span></div><div class="faq-answer">New businesses start at 1.5⭐. Reviews increase rating.</div></div>
                 </div>
             </div>
         </div>
@@ -1862,13 +1790,13 @@
             measurementId: "G-6XYCXM19D1"
         };
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-
-        // Enable persistence
-        db.enablePersistence().catch(err => console.log('Persistence error:', err));
+        let app, auth, db;
+        try {
+            app = firebase.initializeApp(firebaseConfig);
+            auth = firebase.auth();
+            db = firebase.firestore();
+            db.enablePersistence().catch(err => console.warn('Persistence error:', err));
+        } catch(e) { console.error('Firebase init error:', e); }
 
         // ==================== GLOBAL STATE ====================
         let currentUser = null;
@@ -1878,9 +1806,13 @@
         let reviews = [];
         let followers = [];
         let reports = [];
+        let comments = [];
+        let likes = [];
+        let commentReactions = [];
         let currentBusinessId = null;
         let previousPage = 'home';
         let currentEditBusinessId = null;
+        let currentCommentBusinessId = null;
 
         const ADMIN_EMAIL = "ebubechichukwu8@gmail.com";
 
@@ -1891,18 +1823,65 @@
             'UK': ['England - Greater London', 'England - South East', 'England - South West', 'England - West Midlands', 'England - North West', 'England - North East', 'England - Yorkshire', 'Scotland', 'Wales', 'Northern Ireland'],
             'Kenya': ['Nairobi', 'Mombasa', 'Kisumu', 'Nakuru', 'Eldoret', 'Thika', 'Malindi', 'Kitale', 'Garissa', 'Kakamega'],
             'South Africa': ['Eastern Cape', 'Free State', 'Gauteng', 'KwaZulu-Natal', 'Limpopo', 'Mpumalanga', 'North West', 'Northern Cape', 'Western Cape'],
-            'Ghana': ['Greater Accra', 'Ashanti', 'Western', 'Eastern', 'Northern', 'Central', 'Volta', 'Upper East', 'Upper West', 'Brong Ahafo']
+            'Ghana': ['Greater Accra', 'Ashanti', 'Western', 'Eastern', 'Northern', 'Central', 'Volta', 'Upper East', 'Upper West', 'Brong Ahafo'],
+            'China': ['Any were around china'],
         };
-
-        // ==================== CATEGORIES ====================
         const categories = [
-            'Barber', 'Plumber', 'Electrician', 'Cleaner', 'Mechanic', 'Catering', 
+            'Barber', 'Plumber','Hotel management','restaurant management','eatery and bakery','food vendor','Boutique & clothing','web designer','gadgets vendor','Electrician', 'Cleaner', 'Mechanic', 'Catering', 
             'Photography', 'Tutoring', 'Healthcare', 'Legal', 'Real Estate', 'Beauty & Spa',
             'Tiler', 'Carpenter', 'Solar Installer', 'Graphic Designer', 'Videographer',
             'Interior Decorator', 'Hairstylist', 'Makeup Artist', 'Nail Technician',
             'Fashion Designer', 'Phone Repair', 'Laptop Repair', 'Car Wash', 'Painter',
             'Welder', 'Delivery Service'
         ];
+
+        const categoriesOptions = categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+
+        // ==================== NEW PAYMENT FUNCTIONS ====================
+        let selectedPlanData = { name: '', price: 0, paymentUrl: '' };
+
+        function payBasic() {
+            selectedPlanData = { name: 'Basic', price: 1, paymentUrl: 'https://flutterwave.com/pay/pzbkzacsp1tx' };
+            initiatePayment();
+        }
+
+        function payElite() {
+            selectedPlanData = { name: 'Elite', price: 5, paymentUrl: 'https://flutterwave.com/pay/l2ycfr5ryahh' };
+            initiatePayment();
+        }
+
+        function payPro() {
+            selectedPlanData = { name: 'Pro', price: 10, paymentUrl: 'https://flutterwave.com/pay/pcohoy22w0j9' };
+            initiatePayment();
+        }
+
+        function initiatePayment() {
+            if (!currentUser || isGuest) {
+                showToast('Please login to upgrade', 'error');
+                closeModal('planSelectionModal');
+                return;
+            }
+            
+            sessionStorage.setItem('pendingPlan', JSON.stringify({
+                plan: selectedPlanData.name,
+                price: selectedPlanData.price,
+                userId: currentUser.uid,
+                timestamp: Date.now()
+            }));
+            
+            window.open(selectedPlanData.paymentUrl, '_blank');
+            showToast('Complete payment in new tab, then fill business details', 'info');
+            closeModal('planSelectionModal');
+            document.getElementById('businessModal').classList.add('active');
+            
+            // Preselect plan in dropdown
+            const planSelect = document.getElementById('businessPlan');
+            if (planSelect) {
+                if (selectedPlanData.name === 'Basic') planSelect.value = 'Basic';
+                else if (selectedPlanData.name === 'Elite') planSelect.value = 'Elite';
+                else if (selectedPlanData.name === 'Pro') planSelect.value = 'Pro';
+            }
+        }
 
         // ==================== AUTH FUNCTIONS ====================
         function showRegister() {
@@ -1957,7 +1936,6 @@
             }
         }
 
-        // ==================== FIXED REGISTRATION ====================
         async function handleRegister() {
             const name = document.getElementById('regName').value;
             const username = document.getElementById('regUsername').value;
@@ -1999,7 +1977,6 @@
             try {
                 showLoading(true);
 
-                // Check username
                 const usernameSnapshot = await db.collection('users').where('username', '==', username).get();
                 if (!usernameSnapshot.empty) {
                     showToast('Username already taken', 'error');
@@ -2007,7 +1984,6 @@
                     return;
                 }
 
-                // Check email
                 const emailSnapshot = await db.collection('users').where('email', '==', email).get();
                 if (!emailSnapshot.empty) {
                     showToast('Email already registered', 'error');
@@ -2015,13 +1991,11 @@
                     return;
                 }
 
-                // Create auth user
                 const userCredential = await auth.createUserWithEmailAndPassword(email, password);
                 const user = userCredential.user;
                 
                 await user.updateProfile({ displayName: name });
                 
-                // Create user document
                 const userData = {
                     uid: user.uid,
                     name: name,
@@ -2062,13 +2036,7 @@
                 
             } catch (error) {
                 console.error('Registration error:', error);
-                if (error.code === 'auth/email-already-in-use') {
-                    showToast('Email already in use', 'error');
-                } else if (error.code === 'permission-denied') {
-                    showToast('Please check Firebase Rules - they must allow writes', 'error');
-                } else {
-                    showToast(error.message, 'error');
-                }
+                showToast(error.message, 'error');
             } finally {
                 showLoading(false);
             }
@@ -2203,6 +2171,17 @@
                 
                 const reportsSnapshot = await db.collection('reports').get();
                 reports = reportsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                
+                // NEW: Load comments, likes, commentReactions
+                const commentsSnapshot = await db.collection('comments').get();
+                comments = commentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                
+                const likesSnapshot = await db.collection('likes').get();
+                likes = likesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                
+                const commentReactionsSnapshot = await db.collection('commentReactions').get();
+                commentReactions = commentReactionsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                
             } catch (error) {
                 console.error('Error loading data:', error);
             }
@@ -2226,6 +2205,291 @@
             if (!business.planExpiry) return 30;
             const diff = new Date(business.planExpiry) - new Date();
             return Math.ceil(diff / (1000 * 60 * 60 * 24));
+        }
+
+        // ==================== NEW LIKE SYSTEM ====================
+        async function toggleLike(businessId) {
+            if (!currentUser || isGuest) {
+                showToast('Please login to like', 'error');
+                return;
+            }
+
+            const existingLike = likes.find(l => l.userId === currentUser.uid && l.businessId === businessId);
+
+            try {
+                if (existingLike) {
+                    await db.collection('likes').doc(existingLike.id).delete();
+                    likes = likes.filter(l => l.id !== existingLike.id);
+                    showToast('Removed like', 'info');
+                } else {
+                    const likeData = {
+                        userId: currentUser.uid,
+                        businessId: businessId,
+                        timestamp: new Date().toISOString()
+                    };
+                    const docRef = await db.collection('likes').add(likeData);
+                    likes.push({ id: docRef.id, ...likeData });
+                    showToast('Liked!', 'success');
+                }
+                refreshCurrentView();
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        function getBusinessLikes(businessId) {
+            return likes.filter(l => l.businessId === businessId).length;
+        }
+
+        function hasUserLiked(businessId) {
+            if (!currentUser) return false;
+            return likes.some(l => l.userId === currentUser.uid && l.businessId === businessId);
+        }
+
+        // ==================== NEW COMMENT SYSTEM ====================
+        function openCommentsModal(businessId) {
+            if (!currentUser || isGuest) {
+                showToast('Please login to comment', 'error');
+                return;
+            }
+            currentCommentBusinessId = businessId;
+            renderCommentsModal();
+            document.getElementById('commentsModal').classList.add('active');
+        }
+
+        function renderCommentsModal() {
+            const businessComments = comments.filter(c => c.businessId === currentCommentBusinessId).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            const listDiv = document.getElementById('commentsModalList');
+            
+            if (businessComments.length === 0) {
+                listDiv.innerHTML = '<div class="empty-state"><p>No comments yet. Be the first!</p></div>';
+                return;
+            }
+
+            listDiv.innerHTML = businessComments.map(comment => {
+                const user = users.find(u => u.uid === comment.userId);
+                const commentLikes = commentReactions.filter(r => r.commentId === comment.id && r.type === 'like').length;
+                const commentDislikes = commentReactions.filter(r => r.commentId === comment.id && r.type === 'dislike').length;
+                const userLiked = commentReactions.some(r => r.commentId === comment.id && r.userId === currentUser?.uid && r.type === 'like');
+                const userDisliked = commentReactions.some(r => r.commentId === comment.id && r.userId === currentUser?.uid && r.type === 'dislike');
+                
+                return `
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <strong>${escapeHtml(user?.name || 'Anonymous')}</strong>
+                            <small>${new Date(comment.timestamp).toLocaleString()}</small>
+                        </div>
+                        <div class="comment-text">${escapeHtml(comment.text)}</div>
+                        <div class="comment-actions">
+                            <span class="comment-like-btn ${userLiked ? 'liked' : ''}" onclick="reactToComment('${comment.id}', 'like')" ${commentLikes}</span>
+                            <span class="comment-dislike-btn ${userDisliked ? 'disliked' : ''}" onclick="reactToComment('${comment.id}', 'dislike')" ${commentDislikes}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function submitNewComment() {
+            const text = document.getElementById('newCommentText').value;
+            if (!text.trim()) {
+                showToast('Please enter a comment', 'error');
+                return;
+            }
+
+            try {
+                const commentData = {
+                    businessId: currentCommentBusinessId,
+                    userId: currentUser.uid,
+                    userName: currentUser.name,
+                    text: text.trim(),
+                    timestamp: new Date().toISOString()
+                };
+                const docRef = await db.collection('comments').add(commentData);
+                comments.push({ id: docRef.id, ...commentData });
+                document.getElementById('newCommentText').value = '';
+                renderCommentsModal();
+                refreshCurrentView();
+                showToast('Comment posted!', 'success');
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        async function reactToComment(commentId, type) {
+            if (!currentUser || isGuest) {
+                showToast('Please login to react', 'error');
+                return;
+            }
+
+            const existingReaction = commentReactions.find(r => r.commentId === commentId && r.userId === currentUser.uid);
+
+            try {
+                if (existingReaction) {
+                    if (existingReaction.type === type) {
+                        await db.collection('commentReactions').doc(existingReaction.id).delete();
+                        commentReactions = commentReactions.filter(r => r.id !== existingReaction.id);
+                    } else {
+                        await db.collection('commentReactions').doc(existingReaction.id).update({ type: type });
+                        existingReaction.type = type;
+                    }
+                } else {
+                    const reactionData = {
+                        commentId: commentId,
+                        userId: currentUser.uid,
+                        type: type,
+                        timestamp: new Date().toISOString()
+                    };
+                    const docRef = await db.collection('commentReactions').add(reactionData);
+                    commentReactions.push({ id: docRef.id, ...reactionData });
+                }
+                renderCommentsModal();
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        // ==================== BUSINESS APPLICATION ====================
+        function applyAsBusiness() {
+            if (!currentUser || isGuest) {
+                showToast('Please login to apply', 'error');
+                return;
+            }
+            
+            if (currentUser.isBusiness) {
+                showToast('You are already a business user', 'info');
+                return;
+            }
+            
+            document.getElementById('planSelectionModal').classList.add('active');
+        }
+
+        async function submitBusinessApplication() {
+            const businessName = document.getElementById('businessName').value;
+            const category = document.getElementById('businessCategory').value;
+            const gender = document.getElementById('businessGender').value;
+            const description = document.getElementById('businessDescription').value;
+            const plan = document.getElementById('businessPlan').value;
+            const phone = document.getElementById('businessPhone').value;
+            const address = document.getElementById('businessAddress').value;
+
+            if (!businessName || !category || !description || !phone) {
+                showToast('Please fill in all required fields', 'error');
+                return;
+            }
+
+            const pending = sessionStorage.getItem('pendingPlan');
+            let paymentAmount = plan === 'Basic' ? 1 : plan === 'Elite' ? 5 : 10;
+            
+            try {
+                const expiryDate = new Date();
+                expiryDate.setDate(expiryDate.getDate() + 30);
+
+                const businessData = {
+                    userId: currentUser.uid,
+                    name: businessName,
+                    service: category,
+                    category: category,
+                    gender: gender,
+                    description: description,
+                    address: address || currentUser.address,
+                    city: currentUser.state || '',
+                    state: currentUser.state || '',
+                    country: currentUser.country || 'Nigeria',
+                    plan: plan,
+                    planExpiry: expiryDate.toISOString(),
+                    rating: 1.5,
+                    reviewsCount: 0,
+                    totalStars: 0,
+                    followersCount: 0,
+                    badge: '',
+                    published: true,
+                    banned: false,
+                    phone: phone,
+                    appliedAt: new Date().toISOString(),
+                    paymentReference: 'flutterwave_' + Date.now(),
+                    paymentAmount: paymentAmount
+                };
+
+                const docRef = await db.collection('businesses').add(businessData);
+                businesses.push({ id: docRef.id, ...businessData });
+
+                await db.collection('users').doc(currentUser.uid).update({ 
+                    isBusiness: true,
+                    businessId: docRef.id
+                });
+                currentUser.isBusiness = true;
+
+                const message = encodeURIComponent(
+                    `✅ NEW BUSINESS REGISTRATION\n\n` +
+                    `Business: ${businessName}\n` +
+                    `Category: ${category}\n` +
+                    `Plan: ${plan} ($${paymentAmount})\n` +
+                    `Owner: ${currentUser.name}\n` +
+                    `Email: ${currentUser.email}\n` +
+                    `Phone: ${phone}\n` +
+                    `Address: ${address}\n` +
+                    `Description: ${description}`
+                );
+
+                sessionStorage.removeItem('pendingPlan');
+                window.open(`https://wa.me/2348038684515?text=${message}`, '_blank');
+                
+                closeModal('businessModal');
+                
+                document.getElementById('businessName').value = '';
+                document.getElementById('businessDescription').value = '';
+                document.getElementById('businessPhone').value = '';
+                document.getElementById('businessAddress').value = '';
+                
+                showToast('Business registered! Check WhatsApp for verification.', 'success');
+                
+                await loadData();
+                showUserPage();
+                
+            } catch (error) {
+                console.error('Business registration error:', error);
+                showToast(error.message, 'error');
+            }
+        }
+
+        // ==================== RENEWAL FUNCTIONS ====================
+        function openRenewModal(businessId) {
+            const business = businesses.find(b => b.id === businessId);
+            if (!business) return;
+
+            currentBusinessId = businessId;
+            document.getElementById('renewBusinessName').value = business.name;
+            document.getElementById('renewCurrentPlan').value = business.plan || 'Basic';
+            document.getElementById('renewPlan').value = business.plan || 'Basic';
+            
+            document.getElementById('renewModal').classList.add('active');
+        }
+
+        function submitRenewal() {
+            const business = businesses.find(b => b.id === currentBusinessId);
+            const plan = document.getElementById('renewPlan').value;
+            let price = plan === 'Basic' ? '1' : plan === 'Elite' ? '5' : '10';
+            
+            let paymentUrl = '';
+            if (plan === 'Basic') paymentUrl = 'https://flutterwave.com/pay/pzbkzacsp1tx';
+            else if (plan === 'Elite') paymentUrl = 'https://flutterwave.com/pay/l2ycfr5ryahh';
+            else paymentUrl = 'https://flutterwave.com/pay/pcohoy22w0j9';
+            
+            const message = encodeURIComponent(
+                `🔄 BUSINESS PLAN RENEWAL\n\n` +
+                `Business: ${business.name}\n` +
+                `Owner: ${currentUser.name}\n` +
+                `Email: ${currentUser.email}\n` +
+                `Current Plan: ${business.plan}\n` +
+                `New Plan: ${plan}\n` +
+                `Amount: $${price}`
+            );
+
+            window.open(`https://wa.me/2348038684515?text=${message}`, '_blank');
+            window.open(paymentUrl, '_blank');
+
+            closeModal('renewModal');
+            showToast('Payment link opened. Complete payment and we\'ll update your plan.', 'success');
         }
 
         // ==================== NAVIGATION ====================
@@ -2266,6 +2530,7 @@
                             <option value="UK">UK</option>
                             <option value="Kenya">Kenya</option>
                             <option value="South Africa">South Africa</option>
+                            <option value="china">china</option>
                         </select>
                         <select class="filter-select" id="filterState" onchange="filterBusinesses()">
                             <option value="">All States</option>
@@ -2415,6 +2680,12 @@
                     users.filter(u => !u.isAdmin && !u.banned).map(u => `<option value="${u.uid}">${u.name} (@${u.username || 'username'})</option>`).join('');
             }
             
+            const categorySelect = document.getElementById('adminBusinessCategory');
+            if (categorySelect) categorySelect.innerHTML = categoriesOptions;
+            
+            const editCategorySelect = document.getElementById('editBusinessCategory');
+            if (editCategorySelect) editCategorySelect.innerHTML = categoriesOptions;
+            
             const content = document.getElementById('mainContent');
             content.innerHTML = `
                 <div class="page-header">
@@ -2443,7 +2714,7 @@
         function showAdminTab(tab) {
             const tabs = document.querySelectorAll('.admin-tab');
             tabs.forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event && event.target) event.target.classList.add('active');
             
             const content = document.getElementById('adminTabContent');
             
@@ -2460,18 +2731,7 @@
             const activeBusinesses = businesses.filter(b => !isBusinessExpired(b));
             return `
                 <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Business</th>
-                            <th>Owner</th>
-                            <th>Category</th>
-                            <th>Location</th>
-                            <th>Rating</th>
-                            <th>Plan/Expiry</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Business</th><th>Owner</th><th>Category</th><th>Location</th><th>Rating</th><th>Plan/Expiry</th><th>Status</th><th>Actions</th></tr></thead>
                     <tbody>
                         ${activeBusinesses.map(business => {
                             const owner = users.find(u => u.uid === business.userId);
@@ -2492,11 +2752,7 @@
                                             <button class="btn-edit" onclick="openSetRatingModal('${business.id}')">Set</button>
                                         </div>
                                     </td>
-                                    <td>
-                                        ${business.plan || 'No Plan'} <br>
-                                        <small>${daysLeft} days left</small>
-                                        ${expiring ? '<br><span style="color: var(--danger);">⚠️ Expiring</span>' : ''}
-                                    </td>
+                                    <td>${business.plan || 'No Plan'} <br><small>${daysLeft} days left</small>${expiring ? '<br><span style="color: var(--danger);">⚠️ Expiring</span>' : ''}</td>
                                     <td>${business.banned ? '❌ Banned' : '✅ Active'}</td>
                                     <td class="admin-actions">
                                         ${!business.banned ? `<button class="btn-ban" onclick="banBusiness('${business.id}')">Ban</button>` : `<button class="btn-approve" onclick="unbanBusiness('${business.id}')">Unban</button>`}
@@ -2517,17 +2773,7 @@
         function renderAdminUsers() {
             return `
                 <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Country</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>User</th><th>Username</th><th>Email</th><th>Country</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead>
                     <tbody>
                         ${users.map(user => `
                             <tr>
@@ -2543,7 +2789,6 @@
                                 </td>
                             </tr>
                         `).join('')}
-                        ${users.length === 0 ? '<tr><td colspan="7">No users</td></tr>' : ''}
                     </tbody>
                 </table>
             `;
@@ -2552,15 +2797,7 @@
         function renderAdminReports() {
             return `
                 <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Business</th>
-                            <th>Reported By</th>
-                            <th>Reason</th>
-                            <th>Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Business</th><th>Reported By</th><th>Reason</th><th>Date</th><th>Actions</th></tr></thead>
                     <tbody>
                         ${reports.map(report => `
                             <tr>
@@ -2584,16 +2821,7 @@
             const pending = businesses.filter(b => !b.published);
             return `
                 <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Business</th>
-                            <th>Owner</th>
-                            <th>Category</th>
-                            <th>Location</th>
-                            <th>Plan</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Business</th><th>Owner</th><th>Category</th><th>Location</th><th>Plan</th><th>Actions</th></tr></thead>
                     <tbody>
                         ${pending.map(business => {
                             const owner = users.find(u => u.uid === business.userId);
@@ -2621,15 +2849,7 @@
             const expired = businesses.filter(b => isBusinessExpired(b));
             return `
                 <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Business</th>
-                            <th>Owner</th>
-                            <th>Category</th>
-                            <th>Expired On</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Business</th><th>Owner</th><th>Category</th><th>Expired On</th><th>Actions</th></tr></thead>
                     <tbody>
                         ${expired.map(business => {
                             const owner = users.find(u => u.uid === business.userId);
@@ -2638,7 +2858,7 @@
                                     <td>${business.name}</td>
                                     <td>${owner ? owner.name : 'Unknown'}</td>
                                     <td>${business.category}</td>
-                                    <td>${new Date(business.planExpiry).toLocaleDateString()}</td>
+                                    <td>${business.planExpiry ? new Date(business.planExpiry).toLocaleDateString() : 'Unknown'}</td>
                                     <td class="admin-actions">
                                         <button class="btn-renew" onclick="adminRenewBusiness('${business.id}')">Renew</button>
                                         <button class="btn-delete" onclick="deleteBusiness('${business.id}')">Delete</button>
@@ -2710,8 +2930,7 @@
                 };
 
                 const docRef = await db.collection('businesses').add(businessData);
-                const newBusiness = { id: docRef.id, ...businessData };
-                businesses.push(newBusiness);
+                businesses.push({ id: docRef.id, ...businessData });
 
                 const user = users.find(u => u.uid === ownerId);
                 if (user && !user.isBusiness) {
@@ -2748,7 +2967,6 @@
 
             try {
                 await db.collection('businesses').doc(currentEditBusinessId).update({ rating: newRating });
-
                 const business = businesses.find(b => b.id === currentEditBusinessId);
                 business.rating = newRating;
 
@@ -2771,7 +2989,6 @@
             if (!business) return;
 
             currentEditBusinessId = businessId;
-
             document.getElementById('editBusinessName').value = business.name || '';
             document.getElementById('editBusinessCategory').value = business.category || '';
             document.getElementById('editBusinessDescription').value = business.description || '';
@@ -2780,7 +2997,6 @@
             document.getElementById('editBusinessCity').value = business.city || '';
             document.getElementById('editBusinessState').value = business.state || '';
             document.getElementById('editBusinessCountry').value = business.country || '';
-
             document.getElementById('editBusinessModal').classList.add('active');
         }
 
@@ -2813,7 +3029,6 @@
                 };
 
                 await db.collection('businesses').doc(currentEditBusinessId).update(updates);
-
                 const business = businesses.find(b => b.id === currentEditBusinessId);
                 Object.assign(business, updates);
 
@@ -2926,7 +3141,165 @@
             }
         }
 
-        // ==================== FOLLOW FUNCTIONS (One Follow Per Person) ====================
+        async function approveBusiness(businessId) {
+            try {
+                const business = businesses.find(b => b.id === businessId);
+                if (business) {
+                    const expiryDate = new Date();
+                    expiryDate.setDate(expiryDate.getDate() + 30);
+
+                    await db.collection('businesses').doc(businessId).update({
+                        published: true,
+                        planExpiry: expiryDate.toISOString()
+                    });
+                    
+                    business.published = true;
+                    business.planExpiry = expiryDate.toISOString();
+                    
+                    const user = users.find(u => u.uid === business.userId);
+                    if (user && !user.isBusiness) {
+                        await db.collection('users').doc(user.uid).update({ isBusiness: true });
+                        user.isBusiness = true;
+                    }
+                    
+                    showAdminDashboard();
+                    showToast('Business approved!', 'success');
+                }
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        async function rejectBusiness(businessId) {
+            try {
+                await db.collection('businesses').doc(businessId).delete();
+                businesses = businesses.filter(b => b.id !== businessId);
+                showAdminDashboard();
+                showToast('Business rejected', 'success');
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        async function banBusiness(businessId) {
+            try {
+                const business = businesses.find(b => b.id === businessId);
+                if (business) {
+                    await db.collection('businesses').doc(businessId).update({ banned: true });
+                    business.banned = true;
+                    
+                    const user = users.find(u => u.uid === business.userId);
+                    if (user) {
+                        await db.collection('users').doc(user.uid).update({ banned: true });
+                        user.banned = true;
+                    }
+                    
+                    showAdminDashboard();
+                    showToast('Business banned', 'success');
+                }
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        async function unbanBusiness(businessId) {
+            try {
+                const business = businesses.find(b => b.id === businessId);
+                if (business) {
+                    await db.collection('businesses').doc(businessId).update({ banned: false });
+                    business.banned = false;
+                    
+                    const user = users.find(u => u.uid === business.userId);
+                    if (user) {
+                        await db.collection('users').doc(user.uid).update({ banned: false });
+                        user.banned = false;
+                    }
+                    
+                    showAdminDashboard();
+                    showToast('Business unbanned', 'success');
+                }
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        async function banUser(userId) {
+            try {
+                const user = users.find(u => u.uid === userId);
+                if (user) {
+                    await db.collection('users').doc(userId).update({ banned: true });
+                    user.banned = true;
+                    
+                    const userBusinesses = businesses.filter(b => b.userId === userId);
+                    for (const business of userBusinesses) {
+                        await db.collection('businesses').doc(business.id).update({ banned: true });
+                        business.banned = true;
+                    }
+                    
+                    showAdminDashboard();
+                    showToast('User banned', 'success');
+                }
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        async function unbanUser(userId) {
+            try {
+                const user = users.find(u => u.uid === userId);
+                if (user) {
+                    await db.collection('users').doc(userId).update({ banned: false });
+                    user.banned = false;
+                    
+                    showAdminDashboard();
+                    showToast('User unbanned', 'success');
+                }
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        async function editBusinessBadge(businessId) {
+            const business = businesses.find(b => b.id === businessId);
+            if (!business) return;
+            
+            const newBadge = prompt('Enter new badge (✨, 💧, ✅, 6⭐):', business.badge);
+            if (newBadge && ['✨', '💧', '✅', '6⭐'].includes(newBadge)) {
+                try {
+                    await db.collection('businesses').doc(businessId).update({ badge: newBadge });
+                    business.badge = newBadge;
+                    
+                    const user = users.find(u => u.uid === business.userId);
+                    if (user) {
+                        await db.collection('users').doc(user.uid).update({ badge: newBadge });
+                        user.badge = newBadge;
+                    }
+                    
+                    showAdminDashboard();
+                    showToast('Badge updated!', 'success');
+                } catch (error) {
+                    showToast(error.message, 'error');
+                }
+            }
+        }
+
+        async function banBusinessFromReport(businessId) {
+            await banBusiness(businessId);
+            showToast('Business banned from report!', 'success');
+        }
+
+        async function dismissReport(reportId) {
+            try {
+                await db.collection('reports').doc(reportId).delete();
+                reports = reports.filter(r => r.id !== reportId);
+                showAdminDashboard();
+                showToast('Report dismissed', 'success');
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        // ==================== FOLLOW FUNCTIONS ====================
         async function toggleFollow(userId) {
             if (!currentUser || isGuest) {
                 showToast('Please login to follow', 'error');
@@ -2939,50 +3312,29 @@
             }
             
             try {
-                // Check if already following (strict one follow per person)
-                const existingFollow = followers.find(f => 
-                    f.followerId === currentUser.uid && f.followingId === userId
-                );
+                const existingFollow = followers.find(f => f.followerId === currentUser.uid && f.followingId === userId);
                 
                 if (existingFollow) {
-                    // Unfollow
                     await db.collection('followers').doc(existingFollow.id).delete();
                     followers = followers.filter(f => f.id !== existingFollow.id);
                     
                     const business = businesses.find(b => b.userId === userId);
                     if (business) {
                         business.followersCount = (business.followersCount || 1) - 1;
-                        await db.collection('businesses').doc(business.id).update({
-                            followersCount: business.followersCount
-                        });
+                        await db.collection('businesses').doc(business.id).update({ followersCount: business.followersCount });
                     }
                     
                     const user = users.find(u => u.uid === userId);
                     if (user) {
                         user.followers = (user.followers || 1) - 1;
-                        await db.collection('users').doc(user.uid).update({
-                            followers: user.followers
-                        });
+                        await db.collection('users').doc(user.uid).update({ followers: user.followers });
                     }
                     
                     currentUser.following = (currentUser.following || 1) - 1;
-                    await db.collection('users').doc(currentUser.uid).update({
-                        following: currentUser.following
-                    });
+                    await db.collection('users').doc(currentUser.uid).update({ following: currentUser.following });
                     
                     showToast('Unfollowed successfully', 'success');
                 } else {
-                    // Double-check no existing follow (security)
-                    const alreadyFollowing = followers.some(f => 
-                        f.followerId === currentUser.uid && f.followingId === userId
-                    );
-                    
-                    if (alreadyFollowing) {
-                        showToast('You are already following this user', 'warning');
-                        return;
-                    }
-                    
-                    // Follow
                     const followData = {
                         followerId: currentUser.uid,
                         followingId: userId,
@@ -2990,29 +3342,22 @@
                     };
                     
                     const docRef = await db.collection('followers').add(followData);
-                    const newFollow = { id: docRef.id, ...followData };
-                    followers.push(newFollow);
+                    followers.push({ id: docRef.id, ...followData });
                     
                     const business = businesses.find(b => b.userId === userId);
                     if (business) {
                         business.followersCount = (business.followersCount || 0) + 1;
-                        await db.collection('businesses').doc(business.id).update({
-                            followersCount: business.followersCount
-                        });
+                        await db.collection('businesses').doc(business.id).update({ followersCount: business.followersCount });
                     }
                     
                     const user = users.find(u => u.uid === userId);
                     if (user) {
                         user.followers = (user.followers || 0) + 1;
-                        await db.collection('users').doc(user.uid).update({
-                            followers: user.followers
-                        });
+                        await db.collection('users').doc(user.uid).update({ followers: user.followers });
                     }
                     
                     currentUser.following = (currentUser.following || 0) + 1;
-                    await db.collection('users').doc(currentUser.uid).update({
-                        following: currentUser.following
-                    });
+                    await db.collection('users').doc(currentUser.uid).update({ following: currentUser.following });
                     
                     showToast('Followed successfully', 'success');
                 }
@@ -3215,6 +3560,10 @@
             const expiring = isBusinessExpiring(business);
             const daysLeft = getDaysUntilExpiry(business);
             const isOwner = currentUser && business.userId === currentUser.uid;
+            const likesCount = getBusinessLikes(business.id);
+            const userLiked = hasUserLiked(business.id);
+            const businessComments = comments.filter(c => c.businessId === business.id).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            const recentComments = businessComments.slice(0, 2);
             
             return `
                 <div class="business-card ${expiring ? 'expiring' : ''}" data-id="${business.id}">
@@ -3242,6 +3591,7 @@
                         <button class="btn-follow ${isFollowing ? 'following' : ''}" onclick="toggleFollow('${business.userId}')">
                             ${isFollowing ? 'Following' : 'Follow'}
                         </button>
+                        <button class="btn-like ${userLiked ? 'liked' : ''}" onclick="toggleLike('${business.id}')">❤️ ${likesCount}</button>
                         <button class="btn-call" onclick="callBusiness('${business.phone}')">Call</button>
                     </div>
                     <div style="display: flex; gap: 5px;">
@@ -3250,6 +3600,20 @@
                         ${isOwner ? `
                             <button class="btn-renew" style="flex:1; padding:8px;" onclick="openRenewModal('${business.id}')">Renew</button>
                         ` : ''}
+                    </div>
+                    <div class="comments-section">
+                        ${recentComments.map(comment => `
+                            <div class="comment-item">
+                                <div class="comment-header">
+                                    <strong>${escapeHtml(comment.userName)}</strong>
+                                    <small>${new Date(comment.timestamp).toLocaleString()}</small>
+                                </div>
+                                <div class="comment-text">${escapeHtml(comment.text)}</div>
+                            </div>
+                        `).join('')}
+                        ${businessComments.length > 2 ? `<div class="view-all-comments" onclick="openCommentsModal('${business.id}')">View all ${businessComments.length} comments →</div>` : ''}
+                        ${businessComments.length <= 2 && businessComments.length > 0 ? `<div class="view-all-comments" onclick="openCommentsModal('${business.id}')">Add a comment →</div>` : ''}
+                        ${businessComments.length === 0 ? `<div class="view-all-comments" onclick="openCommentsModal('${business.id}')">Be the first to comment →</div>` : ''}
                     </div>
                 </div>
             `;
@@ -3439,117 +3803,6 @@
             }
         }
 
-        // ==================== BUSINESS APPLICATION ====================
-        function applyAsBusiness() {
-            if (!currentUser || isGuest) {
-                showToast('Please login to apply', 'error');
-                return;
-            }
-            
-            if (currentUser.isBusiness) {
-                showToast('You are already a business user', 'info');
-                return;
-            }
-            
-            document.getElementById('businessModal').classList.add('active');
-        }
-
-        async function submitBusinessApplication() {
-            const businessName = document.getElementById('businessName').value;
-            const category = document.getElementById('businessCategory').value;
-            const gender = document.getElementById('businessGender').value;
-            const description = document.getElementById('businessDescription').value;
-            const plan = document.getElementById('businessPlan').value;
-
-            if (!businessName || !category || !description) {
-                showToast('Please fill in all required fields', 'error');
-                return;
-            }
-
-            try {
-                const businessData = {
-                    userId: currentUser.uid,
-                    name: businessName,
-                    service: category,
-                    category: category,
-                    gender: gender,
-                    description: description,
-                    address: currentUser.address,
-                    city: currentUser.state,
-                    state: currentUser.state,
-                    country: currentUser.country,
-                    plan: plan,
-                    rating: 1.5,
-                    reviewsCount: 0,
-                    totalStars: 0,
-                    followersCount: 0,
-                    badge: '',
-                    published: false,
-                    banned: false,
-                    phone: currentUser.phone,
-                    appliedAt: new Date().toISOString()
-                };
-
-                const docRef = await db.collection('businesses').add(businessData);
-                businesses.push({ id: docRef.id, ...businessData });
-
-                const message = encodeURIComponent(
-                    `New Business Application\n\n` +
-                    `Business: ${businessName}\n` +
-                    `Owner: ${currentUser.name}\n` +
-                    `Email: ${currentUser.email}\n` +
-                    `Phone: ${currentUser.phone}\n` +
-                    `Category: ${category}\n` +
-                    `Location: ${currentUser.address}, ${currentUser.state}, ${currentUser.country}\n` +
-                    `Plan: ${plan}\n` +
-                    `Description: ${description}`
-                );
-
-                window.open(`https://wa.me/2348038684515?text=${message}`, '_blank');
-
-                closeModal('businessModal');
-                document.getElementById('businessName').value = '';
-                document.getElementById('businessDescription').value = '';
-
-                showToast('Application submitted! Admin will review.', 'success');
-            } catch (error) {
-                showToast(error.message, 'error');
-            }
-        }
-
-        // ==================== RENEWAL FUNCTIONS ====================
-        function openRenewModal(businessId) {
-            const business = businesses.find(b => b.id === businessId);
-            if (!business) return;
-
-            currentBusinessId = businessId;
-            document.getElementById('renewBusinessName').value = business.name;
-            document.getElementById('renewCurrentPlan').value = business.plan || 'Basic';
-            document.getElementById('renewPlan').value = business.plan || 'Basic';
-            
-            document.getElementById('renewModal').classList.add('active');
-        }
-
-        function submitRenewal() {
-            const business = businesses.find(b => b.id === currentBusinessId);
-            const plan = document.getElementById('renewPlan').value;
-
-            const message = encodeURIComponent(
-                `Business Plan Renewal\n\n` +
-                `Business: ${business.name}\n` +
-                `Owner: ${currentUser.name}\n` +
-                `Email: ${currentUser.email}\n` +
-                `Current Plan: ${business.plan}\n` +
-                `New Plan: ${plan}\n` +
-                `Amount: $${plan === 'Basic' ? '1' : plan === 'Elite' ? '5' : '10'}/month`
-            );
-
-            window.open(`https://wa.me/2348038684515?text=${message}`, '_blank');
-
-            closeModal('renewModal');
-            showToast('Renewal request sent!', 'success');
-        }
-
         // ==================== PROFILE EDITING ====================
         function openEditProfileModal() {
             document.getElementById('editName').value = currentUser.name || '';
@@ -3601,7 +3854,6 @@
                 };
                 
                 await db.collection('users').doc(currentUser.uid).update(updates);
-                
                 currentUser = { ...currentUser, ...updates };
                 
                 document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
@@ -3697,165 +3949,6 @@
             }
         }
 
-        // ==================== ADMIN BUSINESS ACTIONS ====================
-        async function approveBusiness(businessId) {
-            try {
-                const business = businesses.find(b => b.id === businessId);
-                if (business) {
-                    const expiryDate = new Date();
-                    expiryDate.setDate(expiryDate.getDate() + 30);
-
-                    await db.collection('businesses').doc(businessId).update({
-                        published: true,
-                        planExpiry: expiryDate.toISOString()
-                    });
-                    
-                    business.published = true;
-                    business.planExpiry = expiryDate.toISOString();
-                    
-                    const user = users.find(u => u.uid === business.userId);
-                    if (user && !user.isBusiness) {
-                        await db.collection('users').doc(user.uid).update({ isBusiness: true });
-                        user.isBusiness = true;
-                    }
-                    
-                    showAdminDashboard();
-                    showToast('Business approved!', 'success');
-                }
-            } catch (error) {
-                showToast(error.message, 'error');
-            }
-        }
-
-        async function banBusiness(businessId) {
-            try {
-                const business = businesses.find(b => b.id === businessId);
-                if (business) {
-                    await db.collection('businesses').doc(businessId).update({ banned: true });
-                    business.banned = true;
-                    
-                    const user = users.find(u => u.uid === business.userId);
-                    if (user) {
-                        await db.collection('users').doc(user.uid).update({ banned: true });
-                        user.banned = true;
-                    }
-                    
-                    showAdminDashboard();
-                    showToast('Business banned', 'success');
-                }
-            } catch (error) {
-                showToast(error.message, 'error');
-            }
-        }
-
-        async function unbanBusiness(businessId) {
-            try {
-                const business = businesses.find(b => b.id === businessId);
-                if (business) {
-                    await db.collection('businesses').doc(businessId).update({ banned: false });
-                    business.banned = false;
-                    
-                    const user = users.find(u => u.uid === business.userId);
-                    if (user) {
-                        await db.collection('users').doc(user.uid).update({ banned: false });
-                        user.banned = false;
-                    }
-                    
-                    showAdminDashboard();
-                    showToast('Business unbanned', 'success');
-                }
-            } catch (error) {
-                showToast(error.message, 'error');
-            }
-        }
-
-        async function banUser(userId) {
-            try {
-                const user = users.find(u => u.uid === userId);
-                if (user) {
-                    await db.collection('users').doc(userId).update({ banned: true });
-                    user.banned = true;
-                    
-                    const userBusinesses = businesses.filter(b => b.userId === userId);
-                    for (const business of userBusinesses) {
-                        await db.collection('businesses').doc(business.id).update({ banned: true });
-                        business.banned = true;
-                    }
-                    
-                    showAdminDashboard();
-                    showToast('User banned', 'success');
-                }
-            } catch (error) {
-                showToast(error.message, 'error');
-            }
-        }
-
-        async function unbanUser(userId) {
-            try {
-                const user = users.find(u => u.uid === userId);
-                if (user) {
-                    await db.collection('users').doc(userId).update({ banned: false });
-                    user.banned = false;
-                    
-                    showAdminDashboard();
-                    showToast('User unbanned', 'success');
-                }
-            } catch (error) {
-                showToast(error.message, 'error');
-            }
-        }
-
-        async function editBusinessBadge(businessId) {
-            const business = businesses.find(b => b.id === businessId);
-            if (!business) return;
-            
-            const newBadge = prompt('Enter new badge (✨, 💧, ✅, 6⭐):', business.badge);
-            if (newBadge && ['✨', '💧', '✅', '6⭐'].includes(newBadge)) {
-                try {
-                    await db.collection('businesses').doc(businessId).update({ badge: newBadge });
-                    business.badge = newBadge;
-                    
-                    const user = users.find(u => u.uid === business.userId);
-                    if (user) {
-                        await db.collection('users').doc(user.uid).update({ badge: newBadge });
-                        user.badge = newBadge;
-                    }
-                    
-                    showAdminDashboard();
-                    showToast('Badge updated!', 'success');
-                } catch (error) {
-                    showToast(error.message, 'error');
-                }
-            }
-        }
-
-        async function banBusinessFromReport(businessId) {
-            await banBusiness(businessId);
-            showToast('Business banned from report!', 'success');
-        }
-
-        async function dismissReport(reportId) {
-            try {
-                await db.collection('reports').doc(reportId).delete();
-                reports = reports.filter(r => r.id !== reportId);
-                showAdminDashboard();
-                showToast('Report dismissed', 'success');
-            } catch (error) {
-                showToast(error.message, 'error');
-            }
-        }
-
-        async function rejectBusiness(businessId) {
-            try {
-                await db.collection('businesses').doc(businessId).delete();
-                businesses = businesses.filter(b => b.id !== businessId);
-                showAdminDashboard();
-                showToast('Business rejected', 'success');
-            } catch (error) {
-                showToast(error.message, 'error');
-            }
-        }
-
         // ==================== CUSTOMER SERVICE ====================
         function openCustomerService() {
             document.getElementById('customerServiceModal').classList.add('active');
@@ -3877,7 +3970,8 @@
 
         // ==================== UTILITY FUNCTIONS ====================
         function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
+            const modal = document.getElementById(modalId);
+            if (modal) modal.classList.remove('active');
             document.getElementById('userMenu').style.display = 'none';
         }
 
@@ -3930,6 +4024,13 @@
             }
         }
 
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
         // Close modals on outside click
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
@@ -3963,7 +4064,6 @@
                         await loadData();
                         showHome();
                     } else {
-                        // Create user document if missing
                         const userData = {
                             uid: user.uid,
                             name: user.displayName || user.email.split('@')[0],
